@@ -14,6 +14,28 @@
       <img width="200" src="{% static 'teamapp/img/logo.png' %}" alt="Logo" />
     </div>
     <h1>Eat ログ</h1>
+    <div>
+      <a href="{% url 'index' %}?sort=date">日付順</a> |
+      <a href="{% url 'index' %}?sort=like">♡が多い順</a>
+    </div>
+    {% if articles %} {% for article in articles %}
+    <div class="text">
+      <h2><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
+      <div>
+        <img width="200" src="{{article.picture}}" />
+      </div>
+      <small>[{{ article.posted_at }}]</small>
+      <div>
+        <a onclick="like({{article.id}});">
+          ♡:<span id="like{{article.id}}">{{article.like}}</span>
+        </a>
+      </div>
+      <div>{{ article.body | linebreaksbr }}</div>
+    </div>
+    {% endfor %} {% else %}
+    <p>記事はありません</p>
+    {% endif %}
+    <br />
     <p>以下のフォームから記事を送信できます。</p>
     <form action="{% url 'index' %}" method="post">
       {% csrf_token %}
@@ -31,28 +53,17 @@
         <textarea id="textInput" name="text" rows="3"></textarea>
       </div>
       <div>
+        <label for="textInput">画像</label><br />
+        <input
+          id="imgInput"
+          name="picture"
+          type="url"
+          placeholder="Input imageURL"
+        />
+      </div>
+      <div>
         <button type="submit">提出</button>
       </div>
     </form>
-
-    <br />
-    <div>
-      <a href="{% url 'index' %}?sort=date">日付順</a> |
-      <a href="{% url 'index' %}?sort=like">♡が多い順</a>
-    </div>
-    {% if articles %} {% for article in articles %}
-    <div class="text">
-      <h2><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
-      <small>[{{ article.posted_at }}]</small>
-      <div>
-        <a onclick="like({{article.id}});">
-          ♡:<span id="like{{article.id}}">{{article.like}}</span>
-        </a>
-      </div>
-      <div>{{ article.body | linebreaksbr }}</div>
-    </div>
-    {% endfor %} {% else %}
-    <p>記事はありません</p>
-    {% endif %}
   </body>
 </html>
