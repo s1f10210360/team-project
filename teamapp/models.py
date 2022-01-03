@@ -22,3 +22,4 @@ class Comment(models.Model):
 	text=models.TextField()
 	posted_at=models.DateTimeField(default=timezone.now)
 	article=models.ForeignKey(Article,related_name='comments',on_delete=models.CASCADE)
+	picture=models.CharField(max_length=1000)

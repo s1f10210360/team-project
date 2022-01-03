@@ -42,7 +42,7 @@ def detail(request, article_id):
 	except Article.DoesNotExist:
 		raise Http404("Article does not exist")
 	if request.method=='POST':
-		comment=Comment(article=article, text=request.POST['text'])
+		comment=Comment(article=article, text=request.POST['text'],picture=request.POST['picture'])
 		comment.save()
 
 	context={
