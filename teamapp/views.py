@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.utils import timezone
 import random
 from teamapp.models import Article,Comment
@@ -84,3 +84,16 @@ def like(request, article_id):
 	except Article.DoesNotExist:
 		raise Http404("Article does not exist")
 	return redirect(detail,article_id)	
+
+def api_like(request, article_id):
+	try:
+		article=Article.objects.get(pk=article_id)
+		article.like+=1
+		article.save()
+	except Article.DoesNotExist:
+		raise Http404("Articles does not exist")
+	result={
+		'id':article_id,
+		'like':article.like
+	}
+	return JsonResponse(result)
