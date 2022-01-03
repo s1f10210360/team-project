@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link href="{% static 'teamapp/css/default.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="header">
+      <img width="200" src="{% static 'teamapp/img/logo.png' %}" alt="Logo" />
+    </div>
+    <h1>Eat ログ</h1>
+    <p>以下のフォームから記事を送信できます。</p>
+    <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">タイトル</label><br />
+        <input
+          id="titleInput"
+          name="title"
+          type="text"
+          placeholder="Input title"
+        />
+      </div>
+      <div>
+        <label for="textInput">テキスト</label><br />
+        <textarea id="textInput" name="text" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">提出</button>
+      </div>
+    </form>
+
+    <br />
+    <div>
+      <a href="{% url 'index' %}?sort=date">日付順</a> |
+      <a href="{% url 'index' %}?sort=like">likeが多い順</a>
+    </div>
+    {% if articles %} {% for article in articles %}
+    <div class="text">
+      <h2><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
+      <small>[{{ article.posted_at }}]</small>
+      <div>
+        <a href="{% url 'like' article.id %}"> Like: {{ article.like}} </a>
+      </div>
+      <div>{{ article.body | linebreaksbr }}</div>
+    </div>
+    {% endfor %} {% else %}
+    <p>記事はありません</p>
+    {% endif %}
+  </body>
+</html>
