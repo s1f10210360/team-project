@@ -3,13 +3,19 @@
   <head>
     <title>Edit</title>
     <meta charset="UTF-8" />
+    <script type="text/javascript">
+      function update_picture(value) {
+        let element = document.querySelector("#image");
+        element.src = value;
+      }
+    </script>
   </head>
   <body>
-    <h1>Edit article</h1>
+    <h1>記事を編集する</h1>
     <form action="{% url 'update' article.id %}" method="post">
       {% csrf_token %}
       <div>
-        <label for="titleInput">Title</label>
+        <label for="titleInput">タイトル</label>
         <input
           id="titleInput"
           name="title"
@@ -19,13 +25,27 @@
         />
       </div>
       <div>
-        <label for="textInput">Text</label>
+        <label for="textInput">テキスト</label>
         <textarea id="textInput" name="text" rows="3">
  {{ article.body }}</textarea
         >
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <label for="textInput">画像</label>
+        <input
+          id="imgInput"
+          name="picture"
+          type="url"
+          placeholder="Input imageURL"
+          value="{{ article.picture }}"
+          onchange="update_picture(this.value)"
+        />
+        <div>
+          <img id="image" width="200" src="{{ article.picture }}" />
+        </div>
+      </div>
+      <div>
+        <button type="submit">提出</button>
       </div>
     </form>
   </body>

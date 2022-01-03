@@ -7,7 +7,7 @@ from teamapp.models import Article,Comment
 
 def index(request):
 	if request.method == 'POST':
-		article = Article(title=request.POST['title'],body=request.POST['text'])
+		article = Article(title=request.POST['title'],body=request.POST['text'],picture=request.POST['picture'])
 		article.save()
 		return redirect(detail, article.id)
 
@@ -59,6 +59,7 @@ def update(request, article_id):
 	if request.method =='POST':
 		article.title=request.POST['title']
 		article.body=request.POST['text']
+		article.picture=request.POST['picture']
 		article.save()
 		return redirect(detail, article_id)		
 	context={
