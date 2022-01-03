@@ -4,6 +4,10 @@
   <head>
     <meta charset="UTF-8" />
     <link href="{% static 'teamapp/css/default.css' %}" rel="stylesheet" />
+    <script
+      type="text/javascript"
+      src="{% static 'teamapp/js/index.js' %}"
+    ></script>
   </head>
   <body>
     <div id="header">
@@ -34,14 +38,16 @@
     <br />
     <div>
       <a href="{% url 'index' %}?sort=date">日付順</a> |
-      <a href="{% url 'index' %}?sort=like">likeが多い順</a>
+      <a href="{% url 'index' %}?sort=like">♡が多い順</a>
     </div>
     {% if articles %} {% for article in articles %}
     <div class="text">
       <h2><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
       <small>[{{ article.posted_at }}]</small>
       <div>
-        <a href="{% url 'like' article.id %}"> Like: {{ article.like}} </a>
+        <a onclick="like({{article.id}});">
+          ♡:<span id="like{{article.id}}">{{article.like}}</span>
+        </a>
       </div>
       <div>{{ article.body | linebreaksbr }}</div>
     </div>
