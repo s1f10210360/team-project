@@ -36,6 +36,7 @@
     <p>記事はありません</p>
     {% endif %}
     <br />
+    <hr />
     <p>以下のフォームから記事を送信できます。</p>
     <form action="{% url 'index' %}" method="post">
       {% csrf_token %}
