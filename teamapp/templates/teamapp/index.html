@@ -4,10 +4,12 @@
   <head>
     <meta charset="UTF-8" />
     <link href="{% static 'teamapp/css/default.css' %}" rel="stylesheet" />
-    <script
-      type="text/javascript"
-      src="{% static 'teamapp/js/index.js' %}"
-    ></script>
+    <script type="text/javascript">
+      function update_picture(value) {
+        let element = document.querySelector("#image");
+        element.src = value;
+      }
+    </script>
   </head>
   <body>
     <div id="header">
@@ -62,7 +64,11 @@
           name="picture"
           type="url"
           placeholder="Input imageURL"
+          onchange="update_picture(this.value)"
         />
+        <div>
+          <img id="image" width="200" src="{{ article.picture }}" />
+        </div>
       </div>
       <div>
         <button type="submit">提出</button>
