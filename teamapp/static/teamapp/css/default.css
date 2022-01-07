@@ -3,16 +3,16 @@ body {
 }
 
 h1 {
-    border-bottom: solid 1px #17194c;
+    border-bottom: solid 1px #f71717;
 }
 
 h2 {
     padding: 0px 10px 0px 10px;
-    border-left: solid 4px #17194c;
+    border-left: solid 4px #f19a57;
 }
 
 #header {
-    background-color: #17194c;
+    background-color: #e0b667;
     padding: 10px 20px 10px 20px;
     height: 40px;
 }
@@ -38,5 +38,5 @@ h2 {
 .text {
     margin: 10px;
     padding: 10px;
-    background-color: #eeeeff;
+    background-color: #e8f8cb;
 }
